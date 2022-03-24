@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NoteApp</string>
+    <string name="text_edited">Edited</string>
+    <string name="empty_list">Note list is empty!</string>
+</resources>

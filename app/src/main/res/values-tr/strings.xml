@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NoteApp</string>
+    <string name="text_edited">Düzenlendi</string>
+    <string name="empty_list">Not listesi boş!</string>
+</resources>
