@@ -6,4 +6,8 @@ import kotlinx.coroutines.flow.Flow
 interface NoteRepository {
 
     fun getAllNotes(): Flow<List<Note>>
+
+    suspend fun insertAll(vararg notes: Note)
+
+    suspend fun update(note: Note)
 }

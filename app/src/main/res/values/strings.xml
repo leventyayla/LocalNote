@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">NoteApp</string>
+    <string name="app_name" translatable="false">LocalNote</string>
     <string name="text_edited">Edited</string>
     <string name="empty_list">Note list is empty!</string>
+    <string name="note_title">Title</string>
+    <string name="note_desc">Description</string>
+    <string name="note_image">Image Url (Optional)</string>
 </resources>

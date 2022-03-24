@@ -22,6 +22,7 @@ class CreateOrEditFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCreateOrEditBinding.inflate(inflater, container, false)
+        binding?.note = activityModel.note
         return binding?.root
     }
 

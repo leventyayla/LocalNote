@@ -6,8 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="8dp"
     android:elevation="8dp"
-    app:cardBackgroundColor="#EDEDED"
-    android:layout_margin="8dp">
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/note_bg"
+    android:layout_marginHorizontal="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

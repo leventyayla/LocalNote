@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 @Entity
 data class Note (
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "image") val image: String? = null,
-    @ColumnInfo(name = "created_date") val createdDate: Long,
-    @ColumnInfo(name = "edited_date") val editedDate: Long? = null
+    @ColumnInfo(name = "title") var title: String = "",
+    @ColumnInfo(name = "description") var description: String = "",
+    @ColumnInfo(name = "image") var image: String? = null,
+    @ColumnInfo(name = "created_date") var createdDate: Long = -1,
+    @ColumnInfo(name = "edited_date") var editedDate: Long? = null
 )

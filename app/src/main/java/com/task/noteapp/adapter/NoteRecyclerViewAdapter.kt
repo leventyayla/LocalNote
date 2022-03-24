@@ -46,8 +46,19 @@ class NoteRecyclerViewAdapter(
             }
         }
 
-        holder.binding.noteTitle.text = item.title
-        holder.binding.noteDesc.text = item.description
+        takeIf { item.title.isNotEmpty() }?.run {
+            holder.binding.noteTitle.visibility = View.VISIBLE
+            holder.binding.noteTitle.text = item.title
+        } ?: kotlin.run {
+            holder.binding.noteTitle.visibility = View.GONE
+        }
+
+        takeIf { item.description.isNotEmpty() }?.run {
+            holder.binding.noteDesc.visibility = View.VISIBLE
+            holder.binding.noteDesc.text = item.description
+        } ?: kotlin.run {
+            holder.binding.noteDesc.visibility = View.GONE
+        }
 
         val date: Long = item.editedDate?.let {
             setEdited(holder.binding.noteEdited, true)
