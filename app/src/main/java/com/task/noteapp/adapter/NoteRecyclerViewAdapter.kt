@@ -3,24 +3,41 @@ package com.task.noteapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.task.noteapp.databinding.RowNoteBinding
 import com.task.noteapp.db.entities.Note
-import com.task.noteapp.util.NoteDiffUtil
 import com.task.noteapp.util.load
 import java.text.SimpleDateFormat
 import java.util.*
 
 class NoteRecyclerViewAdapter(
-    private var items: List<Note> = arrayListOf(),
     private val listener: ((Note) -> Unit)? = null
 ): RecyclerView.Adapter<NoteRecyclerViewAdapter.NoteViewHolder>() {
+
+    private val diffUtil = AsyncListDiffer(this, object : DiffUtil.ItemCallback<Note>() {
+        override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+            return when {
+                oldItem.id != newItem.id -> false
+                oldItem.title != newItem.title -> false
+                oldItem.description != newItem.description -> false
+                oldItem.image != newItem.image -> false
+                oldItem.createdDate != newItem.createdDate -> false
+                oldItem.editedDate != newItem.editedDate -> false
+                else -> true
+            }
+        }
+    })
 
     inner class NoteViewHolder(val binding: RowNoteBinding): RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-                listener?.invoke(items[adapterPosition])
+                listener?.invoke(diffUtil.currentList[adapterPosition])
             }
         }
     }
@@ -35,7 +52,7 @@ class NoteRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        val item = items[position]
+        val item = diffUtil.currentList[position]
 
         holder.binding.noteImage.apply {
             item.image?.let {
@@ -80,12 +97,9 @@ class NoteRecyclerViewAdapter(
         view.visibility = if (edited) View.VISIBLE else View.GONE
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = diffUtil.currentList.size
 
     fun setData(newList: List<Note>) {
-        val diffUtil = NoteDiffUtil(items, newList)
-        val diffResults = DiffUtil.calculateDiff(diffUtil)
-        items = newList
-        diffResults.dispatchUpdatesTo(this)
+        diffUtil.submitList(newList)
     }
 }
